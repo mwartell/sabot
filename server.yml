@@ -1,0 +1,15 @@
+---
+- name: provision sabot server
+  hosts: sabot
+  become: yes
+
+  tasks:
+  - name: ensure python is installed
+    apt:
+        name: python3
+        state: latest
+
+  - name: retrieve server code from github
+    git:
+        repo: 'https://github.com/mwartell/sabot.git'
+        dest: /home/ubuntu/sabot

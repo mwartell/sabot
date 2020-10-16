@@ -7,16 +7,9 @@ terraform {
   }
 }
 
-variable "tags" {
-  description = "aws tags to add to all resources created (where possible)"
-  type        = map
-  default = {
-    Creator = "sabot-tf"
-  }
-}
-
+# use the ~/.aws/credentials in the named profile section
 provider "aws" {
-  profile = "default"
+  profile = "terraform"
   region  = "us-east-1"
 }
 
@@ -80,6 +73,8 @@ resource "aws_security_group" "sabot_sg" {
   }
 }
 
+# register ssh public key for sabot server
+#
 resource "aws_key_pair" "awstf" {
   key_name   = "awstf-key"
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDJ/4xt0WZz5uTlxLNuJwJgGyUlzVVsBfv3dTxZiY0qt8x6xAQZdVmcr7p5DuqE7c6hh90qbu3KfBsfXknezwzv20kgoIaxVht2f+1gkNOayhj10Ej5ELClGwQslTJaddCq6uwWCgney30xo/oVY5d656FgHcUTX4vCnrx2vbZuOoJY70FendW2YI42XLiSywCiePwelSDfVNzk8u7n1RBmJDb7feq1SKFF2w/SrjI6fwz3Pv5ck42gH1ZweBpLzhhkc0eIJoXQfLWIPW1SRAjGBxBFYi/QSPNKYluHlmhGsfI7+vm09i6mclGUHqvBy7IY9ol45IlIphuag/WW+ok0X/i+PiKbF72Df9iT2nsV4+hRRle608fQKggwP8I5HBdoOnscdDkwDxLDm+Fvo/+Ub32Z7Jz4zXHclIURjMabi7bp1rbbK4JYpPU4KAk1x14gpRJrcyHcX/hWKqUDczOAlWQ4sb1TJJJCNs6UoGOAye1vByFKV3BXPjBKj1rwais= awstf@omen"
